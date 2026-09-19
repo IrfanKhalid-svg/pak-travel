@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Suggest a place — Safar.pk</title>
+<%- include('partials/head') %>
+</head>
+<body>
+<%- include('partials/navbar') %>
+
+<div class="page-form">
+  <h1>Suggest a place</h1>
+  <p style="color:var(--ink-soft); margin-bottom:24px;">Know a great spot that's missing? Add it below — it'll go live right away.</p>
+
+  <% if (error) { %><div class="form-error"><%= error %></div><% } %>
+
+  <form method="POST" action="/places/suggest" enctype="multipart/form-data">
+    <div class="field">
+      <label>Place name</label>
+      <input type="text" name="name" value="<%= form.name || '' %>" required>
+    </div>
+
+    <div class="form-row">
+      <div class="field">
+        <label>Province / region</label>
+        <select name="province" required>
+          <option value="">Select...</option>
+          <% provinces.forEach(p => { %>
+            <option value="<%= p %>" <%= form.province === p ? 'selected' : '' %>><%= p %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div class="field">
+        <label>Category</label>
+        <select name="category" required>
+          <option value="">Select...</option>
+          <% categories.forEach(c => { %>
+            <option value="<%= c %>" <%= form.category === c ? 'selected' : '' %>><%= c %></option>
+          <% }) %>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Description</label>
+      <textarea name="description"><%= form.description || '' %></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="field">
+        <label>Best time to visit</label>
+        <input type="text" name="best_time" placeholder="e.g. April to October" value="<%= form.best_time || '' %>">
+      </div>
+      <div class="field">
+        <label>Entry fee</label>
+        <input type="text" name="entry_fee" placeholder="e.g. Free, or PKR 500" value="<%= form.entry_fee || '' %>">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>How to get there</label>
+      <textarea name="how_to_get_there"><%= form.how_to_get_there || '' %></textarea>
+    </div>
+
+    <div class="field">
+      <label>Estimated trip cost</label>
+      <input type="text" name="estimated_cost" placeholder="e.g. PKR 15,000 - 25,000 per person" value="<%= form.estimated_cost || '' %>">
+    </div>
+
+    <div class="form-row">
+      <div class="field">
+        <label>Map latitude</label>
+        <input type="text" name="map_lat" placeholder="e.g. 36.3167" value="<%= form.map_lat || '' %>">
+      </div>
+      <div class="field">
+        <label>Map longitude</label>
+        <input type="text" name="map_lng" placeholder="e.g. 74.6500" value="<%= form.map_lng || '' %>">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Photos</label>
+      <input type="file" name="photos" accept="image/*" multiple>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit place</button>
+  </form>
+</div>
+
+<%- include('partials/footer') %>
+</body>
+</html>

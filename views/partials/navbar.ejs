@@ -1,0 +1,19 @@
+<header class="site-header">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/">Safar<span>.pk</span></a>
+    <nav class="nav-links">
+      <a href="/">Explore</a>
+      <% if (user) { %>
+        <a href="/places/suggest">Suggest a place</a>
+        <a href="/my-bookings">My bookings</a>
+        <span class="nav-user">Hi, <%= user.name.split(' ')[0] %></span>
+        <form action="/logout" method="POST" class="inline-form">
+          <button type="submit" class="link-btn">Log out</button>
+        </form>
+      <% } else { %>
+        <a href="/login">Log in</a>
+        <a class="nav-cta" href="/register">Sign up</a>
+      <% } %>
+    </nav>
+  </div>
+</header>

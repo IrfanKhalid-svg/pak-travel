@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Log in — Safar.pk</title>
+<%- include('partials/head') %>
+</head>
+<body>
+<%- include('partials/navbar') %>
+
+<div class="auth-wrap">
+  <div class="form-card">
+    <h1>Welcome back</h1>
+    <% if (error) { %><div class="form-error"><%= error %></div><% } %>
+    <form method="POST" action="/login">
+      <div class="field">
+        <label>Email</label>
+        <input type="email" name="email" value="<%= form.email || '' %>" required>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" name="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full">Log in</button>
+    </form>
+    <p class="form-note">Don't have an account? <a href="/register" style="color:var(--teal); text-decoration:underline;">Sign up</a></p>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
+</body>
+</html>

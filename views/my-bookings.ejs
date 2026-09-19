@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>My bookings — Safar.pk</title>
+<%- include('partials/head') %>
+</head>
+<body>
+<%- include('partials/navbar') %>
+
+<div class="page-form" style="max-width:760px;">
+  <h1>My bookings</h1>
+
+  <% if (booked) { %>
+    <div class="banner-success">Your booking request has been submitted.</div>
+  <% } %>
+
+  <% if (bookings.length === 0) { %>
+    <p style="color:var(--ink-soft);">You haven't booked anything yet. <a href="/" style="color:var(--teal); text-decoration:underline;">Explore places</a> to get started.</p>
+  <% } %>
+
+  <% bookings.forEach(b => { %>
+    <div class="booking-row">
+      <div>
+        <div style="font-weight:600; margin-bottom:4px;">
+          <%= b.item ? b.item.name : (b.type === 'tour' ? 'Tour' : 'Hotel') %>
+          <span style="color:var(--ink-soft); font-weight:400;">— <%= b.place_name %></span>
+        </div>
+        <div style="font-size:13.5px; color:var(--ink-soft);">
+          <%= b.type === 'tour' ? 'Starts' : 'Check-in' %> <%= b.date_from %>
+          <% if (b.date_to) { %> — Check-out <%= b.date_to %><% } %>
+          · <%= b.guests %> guest<%= b.guests === 1 ? '' : 's' %>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <span class="status-pill status-<%= b.status %>"><%= b.status %></span>
+        <% if (b.status === 'pending') { %>
+          <form action="/bookings/<%= b.id %>/cancel" method="POST">
+            <button type="submit" class="link-btn" style="font-size:13px;">Cancel</button>
+          </form>
+        <% } %>
+      </div>
+    </div>
+  <% }) %>
+</div>
+
+<%- include('partials/footer') %>
+</body>
+</html>
